@@ -3,8 +3,10 @@
 </script>
 
 <div class="flex flex-col w-screen h-screen">
-	<div class="h-full">
+	<div class="flex flex-col h-full">
 		<Navbar />
-		<slot />
+		<div class="flex-grow">
+			<slot />
+		</div>
 	</div>
 </div>
