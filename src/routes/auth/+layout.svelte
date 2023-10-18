@@ -46,7 +46,7 @@
 	<!-- </Canvas> -->
 
 	<div class="flex absolute top-0 right-0 bottom-0 left-0 justify-center items-center p-10">
-		<div class="bg-opacity-25 glass-container bg-info-content">
+		<div class="flex justify-center items-center bg-opacity-25 glass-container bg-info-content">
 			<slot />
 		</div>
 	</div>

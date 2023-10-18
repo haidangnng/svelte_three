@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { builderForm } from '$lib/stores/builder';
+	import modelControl from '$lib/stores/builder/modelControl';
 </script>
 
 <div class="text-xl font-medium collapse-title">Model</div>
@@ -13,7 +13,7 @@
 				type="number"
 				class="flex-shrink w-16 input"
 				step="0.1"
-				bind:value={$builderForm.modelControl.scale}
+				bind:value={$modelControl.scale}
 			/>
 		</label>
 	</div>
@@ -22,14 +22,14 @@
 		<label class="cursor-pointer label">
 			<span class="label-text">Rotate</span>
 			<input
-				bind:checked={$builderForm.modelControl.isRotating}
+				bind:checked={$modelControl.isRotating}
 				type="checkbox"
 				class="toggle toggle-success"
 			/>
 		</label>
 	</div>
 
-	{#if $builderForm.modelControl.isRotating}
+	{#if $modelControl.isRotating}
 		<div class="form-control">
 			<label class="cursor-pointer label">
 				<span class="label-text">Rotation speed</span>
@@ -38,7 +38,7 @@
 						type="number"
 						step="0.01"
 						class="flex-shrink w-16 input"
-						bind:value={$builderForm.modelControl.rotationSpeed}
+						bind:value={$modelControl.rotationSpeed}
 					/>
 				</div>
 			</label>

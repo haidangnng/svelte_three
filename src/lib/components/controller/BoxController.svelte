@@ -1,41 +1,39 @@
 <script lang="ts">
-	import { builderForm } from '$lib/stores/builder';
+	import { boxSelect } from '$lib/stores/builder/type';
+	import boxControl from '$lib/stores/builder/boxControl';
 </script>
 
-<div class="text-xl font-medium collapse-title">Display Box</div>
+<div class="text-xl font-medium collapse-title">Box</div>
 
 <div class="collapse-content">
 	<div class="form-control">
 		<label class="cursor-pointer label">
-			<span class="label-text">Use display box</span>
+			<span class="label-text">Box type</span>
+			<select bind:value={$boxControl.boxType} class="w-full max-w-xs select select-bordered">
+				{#each boxSelect as { value, label }}
+					<option {value}>{label}</option>
+				{/each}
+			</select>
+		</label>
+	</div>
+
+	<div class="form-control">
+		<label class="cursor-pointer label">
+			<span class="label-text">Transparent</span>
 			<input
-				name="useBox"
-				bind:checked={$builderForm.boxControl.useBox}
+				bind:checked={$boxControl.useTransparent}
 				type="checkbox"
 				class="toggle toggle-success"
 			/>
 		</label>
 	</div>
 
-	{#if $builderForm.boxControl.useBox}
-		<div class="form-control">
-			<label class="cursor-pointer label">
-				<span class="label-text">Transparent</span>
-				<input
-					bind:checked={$builderForm.boxControl.useTransparent}
-					type="checkbox"
-					class="toggle toggle-success"
-				/>
-			</label>
-		</div>
-	{/if}
-
-	{#if $builderForm.boxControl.useBox && $builderForm.boxControl.useTransparent}
+	{#if $boxControl.useTransparent}
 		<div class="form-control">
 			<label class="space-x-2 cursor-pointer label">
 				<span class="label-text">Roughness</span>
 				<input
-					bind:value={$builderForm.boxControl.roughness}
+					bind:value={$boxControl.roughness}
 					type="range"
 					min="0"
 					max="1"
@@ -49,7 +47,7 @@
 			<label class="space-x-2 cursor-pointer label">
 				<span class="label-text">Metalness</span>
 				<input
-					bind:value={$builderForm.boxControl.metalness}
+					bind:value={$boxControl.metalness}
 					type="range"
 					min="0"
 					max="1"
@@ -62,7 +60,7 @@
 			<label class="space-x-2 cursor-pointer label">
 				<span class="label-text">Transmission</span>
 				<input
-					bind:value={$builderForm.boxControl.transmission}
+					bind:value={$boxControl.transmission}
 					type="range"
 					min="0"
 					max="1"

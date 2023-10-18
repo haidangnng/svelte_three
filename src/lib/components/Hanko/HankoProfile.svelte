@@ -6,7 +6,6 @@
 	const hankoApi = env.PUBLIC_HANKO_API_URL;
 
 	onMount(async () => {
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		register(hankoApi).catch((error) => {
 			// handle error
 		});

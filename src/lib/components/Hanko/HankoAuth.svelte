@@ -6,30 +6,94 @@
 	const hankoApi = env.PUBLIC_HANKO_API_URL;
 
 	const redirectAfterLogin = () => {
-		goto('/dashboard');
+		goto('/gallery');
 	};
 
 	const hankoOptions: Partial<RegisterOptions> = {
 		enablePasskeys: false,
 		hidePasskeyButtonOnLogin: true
-		// shadow: true,                    // Set to false if you do not want the web component to be attached to the shadow DOM.
-		// injectStyles: true,              // Set to false if you do not want to inject any default styles.
-		// enablePasskeys: true,            // Set to false if you do not want to display passkey-related content.
-		// hidePasskeyButtonOnLogin: false, // Hides the button to sign in with a passkey on the login page.
-		// translations: null,              // Additional translations can be added here. English is used when the option is not
-		//                                  // present or set to `null`, whereas setting an empty object `{}` prevents the elements
-		//                                  // from displaying any translations.
-		// translationsLocation: "/i18n",   // The URL or path where the translation files are located.
-		// fallbackLanguage: "en",          // The fallback language to be used if a translation is not available.
-		// storageKey: "hanko",
+		// shadow: false, // Set to false if you do not want the web component to be attached to the shadow DOM.
+		// injectStyles: false // Set to false if you do not want to inject any default styles.
 	};
 
 	onMount(async () => {
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		register(hankoApi, hankoOptions).catch((_error) => {
+		register(hankoApi, hankoOptions).catch((error) => {
+			console.log('error', error);
 			// handle error
 		});
 	});
 </script>
 
-<hanko-auth on:onAuthFlowCompleted={redirectAfterLogin} />
+<hanko-auth on:onAuthFlowCompleted={redirectAfterLogin} class="fade-in" />
+
+<style>
+	/* container - the UI container */
+	/* headline1 - the "h1" headlines */
+	/* headline2 - the "h2" headlines */
+	/* paragraph - the paragraph elements */
+	/* button - every button element */
+	/* primary-button - the primary button */
+	/* secondary-button - the secondary button on the email login page */
+	/* input - every input field */
+	/* text-input - every input field not used for passcodes */
+	/* passcode-input - the passcode input fields */
+	/* link - the links in the footer section */
+	/* error - the error message container */
+	/* error-text - the error message */
+	/* divider - the horizontal divider on the login page */
+	/* divider-text - the divider text */
+	/* divider-line - the line before and after the divider-text */
+	/* form-item - the container of a form item, e.g. an input field or a button */
+
+	hanko-auth::part(container) {
+		background: transparent;
+		-webkit-animation: fade-in 1.5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+		animation: fade-in 1.5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+	}
+
+	@-webkit-keyframes fade-in {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+	@keyframes fade-in {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+
+	hanko-auth::part(headline1) {
+		@apply text-accent text-center;
+	}
+
+	hanko-auth::part(input) {
+		@apply bg-transparent border border-accent text-accent;
+	}
+
+	hanko-auth::part(error) {
+		@apply bg-transparent border border-error text-error;
+	}
+
+	hanko-auth::part(paragraph) {
+		@apply text-white;
+	}
+
+	hanko-auth::part(primary-button) {
+		@apply bg-accent text-accent-content;
+	}
+
+	hanko-auth::part(link) {
+		@apply text-white;
+	}
+
+	hanko-auth::part(secondary-button) {
+		@apply bg-info text-white;
+	}
+</style>
