@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 import type { ModelControlType } from './type';
 
 const defaultModelControl: ModelControlType = {
-	scale: 10,
+	scale: 2,
 	isRotating: true,
 	rotationSpeed: 0.01
 };

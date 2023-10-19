@@ -1,68 +1,145 @@
 <script lang="ts">
 	import BoxController from './BoxController.svelte';
-	import LightingController from './LightingController.svelte';
+	import AmbientLightingController from './AmbientLightingController.svelte';
+	import DirectionalLightingController from './DirectionalLightingController.svelte';
 	import ModelController from './ModelController.svelte';
-	import { Box, Lightbulb, SunDim, User } from 'lucide-svelte';
+	import { Box, LampDesk, Lightbulb, SunDim, User } from 'lucide-svelte';
 
 	import settingControl from '$lib/stores/builder/layout';
+	import SpotLightController from './SpotLightController.svelte';
 
 	enum SETTING_OPTIONS {
 		AMBIENT = 'ambient',
 		DIRECTION = 'direction',
 		MODEL = 'model',
-		BOX = 'box'
+		BOX = 'box',
+		SPOT = 'spot'
 	}
 
 	let openedSetting: SETTING_OPTIONS | undefined;
 
+	$: boxSettingOpen = openedSetting === SETTING_OPTIONS.BOX;
+	$: directionalSettingOpen = openedSetting === SETTING_OPTIONS.DIRECTION;
+	$: ambientSettingOpen = openedSetting === SETTING_OPTIONS.AMBIENT;
+	$: modelSettingOpen = openedSetting === SETTING_OPTIONS.MODEL;
+	$: spotLightSettingOpen = openedSetting === SETTING_OPTIONS.SPOT;
+
 	const toggleSetting = (name: SETTING_OPTIONS) =>
-		!openedSetting ? (openedSetting = name) : (openedSetting = undefined);
+		!openedSetting || openedSetting !== name ? (openedSetting = name) : (openedSetting = undefined);
 </script>
 
 <div class="flex absolute bottom-0 flex-col-reverse gap-2 mb-2 h-fit">
-	<button
-		class="flex justify-center items-center bg-base-200 btn-circle hover:bg-base-300"
+	<div
 		class:!delay-50={$settingControl.isSettingOpen}
 		class:!delay-200={!$settingControl.isSettingOpen}
 		class:slide-in-left={$settingControl.isSettingOpen}
 		class:slide-out-left={!$settingControl.isSettingOpen}
-		on:click|preventDefault={() => toggleSetting(SETTING_OPTIONS.MODEL)}
+		class="flex gap-2 items-center w-fit group"
 	>
-		<User />
-	</button>
+		<button
+			class="flex flex-shrink-0 justify-center items-center bg-base-200 btn-circle hover:bg-base-300"
+			on:click|preventDefault={() => toggleSetting(SETTING_OPTIONS.MODEL)}
+		>
+			<User />
+		</button>
+		<p class="hidden whitespace-nowrap group-hover:block text-base-100">Model settings</p>
+	</div>
 
-	<button
-		class="flex justify-center items-center bg-base-200 btn-circle hover:bg-base-300"
+	<div
 		class:!delay-100={$settingControl.isSettingOpen}
 		class:!delay-150={!$settingControl.isSettingOpen}
 		class:slide-in-left={$settingControl.isSettingOpen}
 		class:slide-out-left={!$settingControl.isSettingOpen}
-		on:click|preventDefault={() => toggleSetting(SETTING_OPTIONS.AMBIENT)}
+		class="flex gap-2 items-center w-fit group"
 	>
-		<SunDim />
-	</button>
+		<button
+			class="flex flex-shrink-0 justify-center items-center bg-base-200 btn-circle hover:bg-base-300"
+			on:click|preventDefault={() => toggleSetting(SETTING_OPTIONS.AMBIENT)}
+		>
+			<SunDim />
+		</button>
+		<p class="hidden whitespace-nowrap group-hover:block text-base-100">Ambient light settings</p>
+	</div>
 
-	<button
-		class="flex justify-center items-center bg-base-200 btn-circle hover:bg-base-300"
+	<div
 		class:!delay-150={$settingControl.isSettingOpen}
 		class:!delay-100={!$settingControl.isSettingOpen}
 		class:slide-in-left={$settingControl.isSettingOpen}
 		class:slide-out-left={!$settingControl.isSettingOpen}
-		on:click|preventDefault={() => toggleSetting(SETTING_OPTIONS.DIRECTION)}
+		class="flex gap-2 items-center w-fit group"
 	>
-		<Lightbulb />
-	</button>
+		<button
+			class="flex flex-shrink-0 justify-center items-center bg-base-200 btn-circle hover:bg-base-300"
+			on:click|preventDefault={() => toggleSetting(SETTING_OPTIONS.SPOT)}
+		>
+			<LampDesk />
+		</button>
+		<p class="hidden whitespace-nowrap group-hover:block text-base-100">Spot light settings</p>
+	</div>
 
-	<button
-		class="flex justify-center items-center bg-base-200 btn-circle hover:bg-base-300"
+	<div
+		class:!delay-150={$settingControl.isSettingOpen}
+		class:!delay-100={!$settingControl.isSettingOpen}
+		class:slide-in-left={$settingControl.isSettingOpen}
+		class:slide-out-left={!$settingControl.isSettingOpen}
+		class="flex gap-2 items-center w-fit group"
+	>
+		<button
+			class="flex flex-shrink-0 justify-center items-center bg-base-200 btn-circle hover:bg-base-300"
+			on:click|preventDefault={() => toggleSetting(SETTING_OPTIONS.DIRECTION)}
+		>
+			<Lightbulb />
+		</button>
+		<p class="hidden whitespace-nowrap group-hover:block text-base-100">
+			Directional light settings
+		</p>
+	</div>
+
+	<div
 		class:!delay-200={$settingControl.isSettingOpen}
 		class:!delay-50={!$settingControl.isSettingOpen}
 		class:slide-in-left={$settingControl.isSettingOpen}
 		class:slide-out-left={!$settingControl.isSettingOpen}
-		on:click|preventDefault={() => toggleSetting(SETTING_OPTIONS.BOX)}
+		class="flex gap-2 items-center w-fit group"
 	>
-		<Box />
-	</button>
+		<button
+			class="flex flex-shrink-0 justify-center items-center bg-base-200 btn-circle hover:bg-base-300"
+			on:click|preventDefault={() => toggleSetting(SETTING_OPTIONS.BOX)}
+		>
+			<Box />
+		</button>
+		<p class="hidden whitespace-nowrap group-hover:block text-base-100">Model settings</p>
+	</div>
+
+	{#if boxSettingOpen}
+		<div class="absolute left-14 p-4 rounded-xl bg-base-300 w-[500px]">
+			<BoxController />
+		</div>
+	{/if}
+
+	{#if spotLightSettingOpen}
+		<div class="absolute left-14 p-4 rounded-xl bg-base-300 w-[500px]">
+			<SpotLightController />
+		</div>
+	{/if}
+
+	{#if ambientSettingOpen}
+		<div class="absolute left-14 p-4 rounded-xl bg-base-300 w-[500px]">
+			<AmbientLightingController />
+		</div>
+	{/if}
+
+	{#if directionalSettingOpen}
+		<div class="absolute left-14 p-4 rounded-xl bg-base-300 w-[500px]">
+			<DirectionalLightingController />
+		</div>
+	{/if}
+
+	{#if modelSettingOpen}
+		<div class="absolute left-14 p-4 rounded-xl bg-base-300 w-[500px]">
+			<ModelController />
+		</div>
+	{/if}
 </div>
 
 <!-- <div class="flex absolute left-0 left-20 flex-col-reverse h-fit"> -->
@@ -70,12 +147,11 @@
 <!-- 		<div class="space-y-2 collapse-content"> -->
 <!-- 			<div class="w-96 collapse collapse-arrow bg-base-200"> -->
 <!-- 				<input type="checkbox" name="my-accordion-2" /> -->
-<!-- 				<BoxController /> -->
 <!-- 			</div> -->
 <!---->
 <!-- 			<div class="w-96 collapse collapse-arrow bg-base-200"> -->
 <!-- 				<input type="checkbox" name="my-accordion-2" /> -->
-<!-- 				<LightingController /> -->
+<!-- 				<AmbientLightingController /> -->
 <!-- 			</div> -->
 <!---->
 <!-- 			<div class="w-96 collapse collapse-arrow bg-base-200"> -->

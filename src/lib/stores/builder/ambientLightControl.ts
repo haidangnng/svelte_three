@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 import type { LightingControlType } from './type';
 
 const defaultAmbientLightControl: LightingControlType = {
-	color: '#000000',
+	color: '#ffffff',
 	intensity: 0.5
 };
 

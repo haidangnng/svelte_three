@@ -32,6 +32,9 @@ dependencies:
   lucide-svelte:
     specifier: ^0.287.0
     version: 0.287.0(svelte@4.2.1)
+  svelte-portal:
+    specifier: ^2.2.0
+    version: 2.2.0
   three:
     specifier: ^0.157.0
     version: 0.157.0
@@ -79,6 +82,9 @@ devDependencies:
   svelte:
     specifier: ^4.0.5
     version: 4.2.1
+  svelte-awesome-color-picker:
+    specifier: ^2.4.7
+    version: 2.4.7
   svelte-check:
     specifier: ^3.4.3
     version: 3.5.2(postcss@8.4.31)(svelte@4.2.1)
@@ -2257,6 +2263,12 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
+  /svelte-awesome-color-picker@2.4.7:
+    resolution: {integrity: sha512-LW9n16pR3V9vxFXdq0rmtBYJXv57zBZmLV/KNPtFqTo0kYwu7NsQhZZxFv6qoB/5PUXyPMfe3VCllyauFEY3SQ==}
+    dependencies:
+      colord: 2.9.3
+    dev: true
+
   /svelte-check@3.5.2(postcss@8.4.31)(svelte@4.2.1):
     resolution: {integrity: sha512-5a/YWbiH4c+AqAUP+0VneiV5bP8YOk9JL3jwvN+k2PEPLgpu85bjQc5eE67+eIZBBwUEJzmO3I92OqKcqbp3fw==}
     hasBin: true
@@ -2309,6 +2321,10 @@ packages:
     dependencies:
       svelte: 4.2.1
     dev: true
+
+  /svelte-portal@2.2.0:
+    resolution: {integrity: sha512-jhtZWtD6cUE2nMw46dJ5VXWYiqnER+JH+V/BmNBQ5fNP/YdsJCpJi+DemUy9msklqGb0f+wLhJPBtKHLWQvzjg==}
+    dev: false
 
   /svelte-preprocess@5.0.4(postcss@8.4.31)(svelte@4.2.1)(typescript@5.2.2):
     resolution: {integrity: sha512-ABia2QegosxOGsVlsSBJvoWeXy1wUKSfF7SWJdTjLAbx/Y3SrVevvvbFNQqrSJw89+lNSsM58SipmZJ5SRi5iw==}
