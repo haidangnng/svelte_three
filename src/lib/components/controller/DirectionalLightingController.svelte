@@ -40,7 +40,7 @@
 				<span class="w-fit shrink-0">x</span>
 				<input
 					type="range"
-					min="0"
+					min="-40"
 					max="40"
 					bind:value={$directionLightControl.position[0]}
 					class="range"
@@ -51,7 +51,7 @@
 				<span class="w-fit shrink-0">y</span>
 				<input
 					type="range"
-					min="0"
+					min="-40"
 					max="40"
 					bind:value={$directionLightControl.position[1]}
 					class="range"
@@ -62,7 +62,7 @@
 				<span class="w-fit shrink-0">z</span>
 				<input
 					type="range"
-					min="0"
+					min="-40"
 					max="40"
 					bind:value={$directionLightControl.position[2]}
 					class="range"
@@ -81,8 +81,8 @@
 				<span class="w-fit shrink-0">x</span>
 				<input
 					type="range"
-					min="0"
-					max="1"
+					min="-10"
+					max="10"
 					bind:value={$directionLightControl.target[0]}
 					class="range"
 					step={0.01}
@@ -93,7 +93,7 @@
 				<input
 					type="range"
 					min="0"
-					max="100"
+					max="20"
 					bind:value={$directionLightControl.target[1]}
 					class="range"
 					step={0.01}
@@ -103,8 +103,8 @@
 				<span class="w-fit shrink-0">z</span>
 				<input
 					type="range"
-					min="0"
-					max="100"
+					min="-10"
+					max="10"
 					bind:value={$directionLightControl.target[2]}
 					class="range"
 					step={0.01}
