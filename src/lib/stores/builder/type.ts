@@ -8,12 +8,21 @@ export const boxSelect = [
 	{ value: BOX_TYPE.DISPLAY, label: 'display box' }
 ];
 
+type BoxSizeType = {
+	height: number;
+	width: number;
+	depth: number;
+};
+
 export type BoxControlType = {
 	boxType: BOX_TYPE;
+	color: string;
 	useTransparent: boolean;
+	useTexture?: boolean;
 	roughness?: number;
 	transmission?: number;
 	metalness?: number;
+	size: BoxSizeType;
 };
 
 export type LightingControlType = {
@@ -25,13 +34,6 @@ export type DirectionalLightControlType = LightingControlType & {
 	position: [number, number, number];
 	target: [number, number, number];
 };
-// color - (optional) hexadecimal color of the light. Default is 0xffffff (white).
-// intensity - (optional) numeric value of the light's strength/intensity. Default is 1.
-//
-// distance - Maximum range of the light. Default is 0 (no limit).
-// angle - Maximum angle of light dispersion from its direction whose upper bound is Math.PI/2.
-// penumbra - Percent of the spotlight cone that is attenuated due to penumbra. Takes values between zero and 1. Default is zero.
-// decay - The amount the light dims along the distance of the light.
 
 export type SpotLightControlType = LightingControlType & {
 	distance: number;

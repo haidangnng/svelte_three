@@ -25,7 +25,7 @@
 				<li><a href="/">Item 1</a></li>
 			</ul>
 		</div>
-		<a href="/" class="text-xl normal-case btn btn-ghost">daisyUI</a>
+		<a href="/" class="text-xl uppercase btn btn-ghost">Pogs</a>
 	</div>
 	<div class="hidden lg:flex navbar-center">
 		<ul class="px-1 menu menu-horizontal">

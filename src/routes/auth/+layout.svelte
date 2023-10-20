@@ -9,7 +9,7 @@
 	let coords = spring(
 		{ x: 0, y: 0 },
 		{
-			stiffness: 0.05,
+			stiffness: 0.1,
 			damping: 0.5
 		}
 	);
@@ -41,9 +41,9 @@
 	on:mouseup={() => (isAttract = true)}
 	class="relative w-screen h-screen"
 >
-	<!-- <Canvas> -->
-	<!-- 	<AuthScence attractorCoords={{ x: $coords.x, y: $coords.y }} {isAttract} /> -->
-	<!-- </Canvas> -->
+	<Canvas>
+		<AuthScence attractorCoords={{ x: $coords.x, y: $coords.y }} {isAttract} />
+	</Canvas>
 
 	<div class="flex absolute top-0 right-0 bottom-0 left-0 justify-center items-center p-10">
 		<div class="flex justify-center items-center bg-opacity-25 glass-container bg-info-content">
@@ -56,8 +56,6 @@
 
 <style>
 	.glass-container {
-		height: 100%;
-		width: 100%;
 		border-radius: 16px;
 		box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 		backdrop-filter: blur(5px);

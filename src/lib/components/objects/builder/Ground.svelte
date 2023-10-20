@@ -6,7 +6,7 @@
 <T.Group position={[0, -0.5, 0]}>
 	<AutoColliders shape={'cuboid'}>
 		<T.Mesh receiveShadow>
-			<T.BoxGeometry args={[100, 1, 100]} />
+			<T.BoxGeometry args={[40, 1, 40]} />
 			<T.MeshStandardMaterial color="white" />
 		</T.Mesh>
 	</AutoColliders>

@@ -18,12 +18,15 @@
 
 	let openedSetting: SETTING_OPTIONS | undefined;
 
+	$: openedSetting = $settingControl.isSettingOpen ? openedSetting : undefined;
+
 	$: boxSettingOpen = openedSetting === SETTING_OPTIONS.BOX;
 	$: directionalSettingOpen = openedSetting === SETTING_OPTIONS.DIRECTION;
 	$: ambientSettingOpen = openedSetting === SETTING_OPTIONS.AMBIENT;
 	$: modelSettingOpen = openedSetting === SETTING_OPTIONS.MODEL;
 	$: spotLightSettingOpen = openedSetting === SETTING_OPTIONS.SPOT;
 
+	const handleClose = () => (openedSetting = undefined);
 	const toggleSetting = (name: SETTING_OPTIONS) =>
 		!openedSetting || openedSetting !== name ? (openedSetting = name) : (openedSetting = undefined);
 </script>
@@ -42,7 +45,7 @@
 		>
 			<User />
 		</button>
-		<p class="hidden whitespace-nowrap group-hover:block text-base-100">Model settings</p>
+		<p class="hidden text-white whitespace-nowrap group-hover:block">Model settings</p>
 	</div>
 
 	<div
@@ -58,7 +61,7 @@
 		>
 			<SunDim />
 		</button>
-		<p class="hidden whitespace-nowrap group-hover:block text-base-100">Ambient light settings</p>
+		<p class="hidden text-white whitespace-nowrap group-hover:block">Ambient light settings</p>
 	</div>
 
 	<div
@@ -74,7 +77,7 @@
 		>
 			<LampDesk />
 		</button>
-		<p class="hidden whitespace-nowrap group-hover:block text-base-100">Spot light settings</p>
+		<p class="hidden text-white whitespace-nowrap group-hover:block">Spot light settings</p>
 	</div>
 
 	<div
@@ -90,9 +93,7 @@
 		>
 			<Lightbulb />
 		</button>
-		<p class="hidden whitespace-nowrap group-hover:block text-base-100">
-			Directional light settings
-		</p>
+		<p class="hidden text-white whitespace-nowrap group-hover:block">Directional light settings</p>
 	</div>
 
 	<div
@@ -108,36 +109,36 @@
 		>
 			<Box />
 		</button>
-		<p class="hidden whitespace-nowrap group-hover:block text-base-100">Model settings</p>
+		<p class="hidden text-white whitespace-nowrap group-hover:block">Model settings</p>
 	</div>
 
 	{#if boxSettingOpen}
 		<div class="absolute left-14 p-4 rounded-xl bg-base-300 w-[500px]">
-			<BoxController />
+			<BoxController {handleClose} />
 		</div>
 	{/if}
 
 	{#if spotLightSettingOpen}
 		<div class="absolute left-14 p-4 rounded-xl bg-base-300 w-[500px]">
-			<SpotLightController />
+			<SpotLightController {handleClose} />
 		</div>
 	{/if}
 
 	{#if ambientSettingOpen}
 		<div class="absolute left-14 p-4 rounded-xl bg-base-300 w-[500px]">
-			<AmbientLightingController />
+			<AmbientLightingController {handleClose} />
 		</div>
 	{/if}
 
 	{#if directionalSettingOpen}
 		<div class="absolute left-14 p-4 rounded-xl bg-base-300 w-[500px]">
-			<DirectionalLightingController />
+			<DirectionalLightingController {handleClose} />
 		</div>
 	{/if}
 
 	{#if modelSettingOpen}
 		<div class="absolute left-14 p-4 rounded-xl bg-base-300 w-[500px]">
-			<ModelController />
+			<ModelController {handleClose} />
 		</div>
 	{/if}
 </div>

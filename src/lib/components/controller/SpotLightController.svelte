@@ -2,15 +2,22 @@
 	import ColorPicker from 'svelte-awesome-color-picker';
 	import PickerWrapper from '../PickerWrapper.svelte';
 	import spotLightControl from '$lib/stores/builder/spotLightControl';
+	import { X } from 'lucide-svelte';
+
+	export let handleClose: () => void;
 </script>
 
-<div class="text-xl font-medium">Spot light</div>
+<div class="flex justify-between items-center w-full text-xl font-medium">
+	<h3>Spotlight</h3>
+	<button class="p-1 btn btn-ghost btn-circle" on:click={handleClose}><X /></button>
+</div>
 
 <div class="form-control">
 	<!-- svelte-ignore a11y-label-has-associated-control -->
 	<label class="cursor-pointer label">
 		<span class="label-text">Color</span>
 		<ColorPicker
+			isAlpha={false}
 			bind:hex={$spotLightControl.color}
 			components={{ wrapper: PickerWrapper }}
 			label=""
@@ -92,7 +99,7 @@
 		<span class="label-text">Distance</span>
 		<input
 			type="range"
-			min="0"
+			min="30"
 			max="100"
 			bind:value={$spotLightControl.distance}
 			class="range"

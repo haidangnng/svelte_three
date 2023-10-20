@@ -1,8 +1,14 @@
 <script lang="ts">
 	import modelControl from '$lib/stores/builder/modelControl';
+	import { X } from 'lucide-svelte';
+
+	export let handleClose: () => void;
 </script>
 
-<div class="text-xl font-medium">Model</div>
+<div class="flex justify-between items-center w-full text-xl font-medium">
+	<h3>Model</h3>
+	<button class="p-1 btn btn-ghost btn-circle" on:click={handleClose}><X /></button>
+</div>
 
 <div class="form-control">
 	<label class="cursor-pointer label">

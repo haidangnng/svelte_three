@@ -1,24 +1,21 @@
 <script lang="ts">
 	import { T } from '@threlte/core';
-	import { Debug, World, Attractor } from '@threlte/rapier';
+	import { World, Attractor } from '@threlte/rapier';
 	import Sphere from '../objects/Sphere.svelte';
 	export let attractorCoords: { x: number; y: number };
 	export let isAttract: boolean = true;
 </script>
 
 <World>
-	<Debug />
-
 	<Sphere />
 	<Attractor
 		range={8}
-		strength={isAttract ? 8 : -2}
+		strength={isAttract ? 10 : -50}
 		position={[attractorCoords.x, attractorCoords.y, 0]}
 	/>
 
-	<T.DirectionalLight position={[0, 10, 10]} />
-
-	<T.AxesHelper />
+	<T.DirectionalLight position={[10, 10, 10]} />
+	<T.AmbientLight intensity={1} />
 </World>
 
 <T.PerspectiveCamera
