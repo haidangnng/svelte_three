@@ -8,21 +8,14 @@ export const boxSelect = [
 	{ value: BOX_TYPE.DISPLAY, label: 'display box' }
 ];
 
-type BoxSizeType = {
-	height: number;
-	width: number;
-	depth: number;
-};
-
 export type BoxControlType = {
 	boxType: BOX_TYPE;
 	color: string;
 	useTransparent: boolean;
-	useTexture?: boolean;
 	roughness?: number;
 	transmission?: number;
 	metalness?: number;
-	size: BoxSizeType;
+	size: [number, number, number];
 };
 
 export type LightingControlType = {

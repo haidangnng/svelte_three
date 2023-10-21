@@ -3,11 +3,11 @@
 	import type { LayoutData } from './$types';
 
 	export let data: LayoutData;
-	$: user_id = data?.user?.user_id || '';
+	$: userId = data?.user?.user_id || '';
 </script>
 
 <div class="flex flex-col h-screen">
-	<Navbar userId={user_id} />
+	<Navbar bind:userId />
 
 	<div class="flex flex-grow justify-center items-center h-full">
 		<div class="text-center hero-content">

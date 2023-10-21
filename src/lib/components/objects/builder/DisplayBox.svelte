@@ -3,7 +3,7 @@
 	import { T } from '@threlte/core';
 
 	$: ({
-		size: { height, width, depth },
+		size: [height, width, depth],
 		color,
 		metalness,
 		roughness,

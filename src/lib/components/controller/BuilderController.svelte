@@ -4,17 +4,10 @@
 	import DirectionalLightingController from './DirectionalLightingController.svelte';
 	import ModelController from './ModelController.svelte';
 	import { Box, LampDesk, Lightbulb, SunDim, User } from 'lucide-svelte';
+	import { SETTING_OPTIONS } from '$lib/types/settings';
 
 	import settingControl from '$lib/stores/builder/layout';
 	import SpotLightController from './SpotLightController.svelte';
-
-	enum SETTING_OPTIONS {
-		AMBIENT = 'ambient',
-		DIRECTION = 'direction',
-		MODEL = 'model',
-		BOX = 'box',
-		SPOT = 'spot'
-	}
 
 	let openedSetting: SETTING_OPTIONS | undefined;
 

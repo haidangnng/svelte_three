@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { T } from '@threlte/core';
+	import { T, useRender } from '@threlte/core';
 	import { OrbitControls } from '@threlte/extras';
 	import Ground from '../objects/builder/Ground.svelte';
 	import { Debug, World } from '@threlte/rapier';
@@ -11,6 +11,13 @@
 	import Model from '../objects/builder/Model.svelte';
 	import { Object3D } from 'three';
 	import { onMount } from 'svelte';
+	import snapshot from '$lib/stores/builder/snapshot';
+	import { sceneCamera, sceneControl } from '$lib/stores/builder/sceneCamera';
+
+	useRender(({ camera, renderer, scene }) => {
+		renderer.render(scene, camera.current);
+		snapshot.set(renderer);
+	});
 
 	$: ({ position, ...rest } = $spotLightControl);
 	$: [x, y, z] = position;
@@ -65,10 +72,14 @@
 		position={[0, 30, 45]}
 		on:create={({ ref }) => {
 			ref.lookAt(0, 1, 0);
+			sceneCamera.set(ref);
 		}}
 		fov={50}
 	>
 		<OrbitControls
+			on:create={({ ref }) => {
+				sceneControl.set(ref);
+			}}
 			minPolarAngle={0}
 			maxPolarAngle={Math.PI / 2}
 			enableZoom={true}

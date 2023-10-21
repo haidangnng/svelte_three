@@ -8,7 +8,7 @@
 		roughness,
 		transmission,
 		useTransparent,
-		size: { height, width, depth }
+		size: [height, width, depth]
 	} = $boxControl);
 
 	$: boxProps = useTransparent

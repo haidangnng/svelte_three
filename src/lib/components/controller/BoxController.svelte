@@ -52,7 +52,7 @@
 					type="range"
 					min="10"
 					max="30"
-					bind:value={$boxControl.size.height}
+					bind:value={$boxControl.size[0]}
 					class="range"
 					step={0.01}
 				/>
@@ -63,7 +63,7 @@
 					type="range"
 					min="10"
 					max="30"
-					bind:value={$boxControl.size.width}
+					bind:value={$boxControl.size[1]}
 					class="range"
 					step={0.01}
 				/>
@@ -74,7 +74,7 @@
 					type="range"
 					min="10"
 					max="30"
-					bind:value={$boxControl.size.depth}
+					bind:value={$boxControl.size[2]}
 					class="range"
 					step={0.01}
 				/>

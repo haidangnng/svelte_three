@@ -2,12 +2,18 @@
 	import { Canvas } from '@threlte/core';
 	import BuilderScene from '$lib/components/scenes/BuilderScene.svelte';
 	import BuilderController from '$lib/components/controller/BuilderController.svelte';
-	import { Settings2 } from 'lucide-svelte';
+	import { Settings2, Video } from 'lucide-svelte';
 
 	import settingControl from '$lib/stores/builder/layout';
+
 	import File from '$lib/components/modals/File.svelte';
 	import SavePost from '$lib/components/modals/SavePost.svelte';
+	import type { LayoutData } from '../$types';
+	import CameraController from '$lib/components/controller/CameraController.svelte';
 
+	export let data: LayoutData;
+
+	$: userId = data?.user?.user_id || '';
 	let inputModalOpen: boolean = false;
 	let saveModalOpen: boolean = false;
 
@@ -60,16 +66,16 @@
 		</div>
 
 		<div class="flex flex-col-reverse">
-			<!-- <button type="button" class="btn btn-circle" on:click={() => toggleSetting('camera')}> -->
-			<!-- 	<Video /> -->
-			<!-- </button> -->
-			<!---->
-			<!-- <div class="relative"> -->
-			<!-- 	<CameraController /> -->
-			<!-- </div> -->
+			<button type="button" class="btn btn-circle" on:click={() => toggleSetting('camera')}>
+				<Video />
+			</button>
+
+			<div class="relative">
+				<CameraController />
+			</div>
 		</div>
 	</div>
 </div>
 
 <File bind:open={inputModalOpen} />
-<SavePost bind:open={saveModalOpen} />
+<SavePost bind:userId bind:open={saveModalOpen} />
