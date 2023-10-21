@@ -1,9 +1,20 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 declare global {
 	// preserve any customizations you have here
 	namespace App {
 		// interface Error {}
-		// interface Locals {}
-		// interface PageData {}
+		interface Locals {
+			supabase: SupabaseClient<Database>;
+			getSession(): Promise<Session | null>;
+		}
+		interface LayoutData {
+			session: Session | null;
+			user: Record<string, any> | undefined;
+		}
+		interface PageData {
+			session: Session | null;
+			user: Record<string, any> | undefined;
+		}
 		// interface Platform {}
 	}
 

@@ -6,8 +6,10 @@
 
 	import settingControl from '$lib/stores/builder/layout';
 	import File from '$lib/components/modals/File.svelte';
+	import SavePost from '$lib/components/modals/SavePost.svelte';
 
 	let inputModalOpen: boolean = false;
+	let saveModalOpen: boolean = false;
 
 	$: toggleSetting = (name: string) => {
 		if (name === 'setting') {
@@ -33,8 +35,6 @@
 		<BuilderScene />
 	</Canvas>
 
-	<form class="space-y-2" method="POST" on:submit|preventDefault />
-
 	<div class="flex absolute bottom-0 justify-between p-4 w-full">
 		<div class="flex flex-col-reverse">
 			<button type="button" class="btn btn-circle" on:click={() => toggleSetting('setting')}>
@@ -47,7 +47,11 @@
 		</div>
 
 		<div>
-			<button type="button" class="px-4 w-40 btn btn-primary">Save</button>
+			<button
+				type="button"
+				on:click={() => (saveModalOpen = true)}
+				class="px-4 w-40 btn btn-primary">Save</button
+			>
 			<button
 				type="button"
 				on:click={() => (inputModalOpen = true)}
@@ -68,3 +72,4 @@
 </div>
 
 <File bind:open={inputModalOpen} />
+<SavePost bind:open={saveModalOpen} />

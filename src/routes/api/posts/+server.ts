@@ -1,7 +1,7 @@
-import { json } from '@sveltejs/kit';
-import db from '$lib/database';
+import { json, type RequestHandler } from '@sveltejs/kit';
 
-export async function GET() {
-	const posts = await db.post.findMany();
-	return json(posts);
-}
+export const GET: RequestHandler = async ({ locals: { supabase } }) => {
+	const { data } = await supabase.from('test').select('*');
+
+	return json({ data });
+};

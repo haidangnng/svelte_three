@@ -1,8 +1,5 @@
 {
 	"name": "svelte-three",
-	"prisma": {
-		"seed": "pnpx vite-node prisma/seed.ts"
-	},
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
@@ -12,13 +9,13 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write .",
-		"postinstall": "prisma generate"
+		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.20.4",
 		"@types/dom-view-transitions": "^1.0.2",
+		"@types/jsonwebtoken": "^9.0.4",
 		"@typescript-eslint/eslint-plugin": "^6.0.0",
 		"@typescript-eslint/parser": "^6.0.0",
 		"autoprefixer": "^10.4.16",
@@ -29,7 +26,6 @@
 		"postcss": "^8.4.31",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.10.1",
-		"prisma": "4.16.2",
 		"svelte": "^4.0.5",
 		"svelte-awesome-color-picker": "^2.4.7",
 		"svelte-check": "^3.4.3",
@@ -42,7 +38,6 @@
 	"type": "module",
 	"dependencies": {
 		"@dimforge/rapier3d-compat": "^0.11.2",
-		"@prisma/client": "^5.4.2",
 		"@supabase/auth-helpers-sveltekit": "^0.10.3",
 		"@supabase/supabase-js": "^2.38.1",
 		"@teamhanko/hanko-elements": "^0.8.4",
@@ -51,6 +46,7 @@
 		"@threlte/rapier": "^1.1.2",
 		"@types/three": "^0.157.0",
 		"jose": "^4.15.4",
+		"jsonwebtoken": "^9.0.2",
 		"lucide-svelte": "^0.287.0",
 		"svelte-portal": "^2.2.0",
 		"three": "^0.157.0"

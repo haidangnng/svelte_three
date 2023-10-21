@@ -1,9 +1,13 @@
-<script>
+<script lang="ts">
 	import Navbar from '$lib/components/Navbar.svelte';
+	import type { LayoutData } from './$types';
+
+	export let data: LayoutData;
+	$: user_id = data?.user?.user_id || '';
 </script>
 
 <div class="flex flex-col h-screen">
-	<Navbar />
+	<Navbar userId={user_id} />
 
 	<div class="flex flex-grow justify-center items-center h-full">
 		<div class="text-center hero-content">

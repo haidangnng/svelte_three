@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { onNavigate } from '$app/navigation';
 	import '../app.css';
+	import type { LayoutData } from './$types';
+
+	export let data: LayoutData;
 
 	onNavigate((navigation) => {
 		if (!document.startViewTransition) return;

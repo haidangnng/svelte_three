@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+
+	export let userId: string;
 </script>
 
 <header class="navbar bg-base-100 header">
@@ -41,7 +43,11 @@
 		</ul>
 	</div>
 	<div class="navbar-end">
-		<a href="/auth" class="btn btn-primary">Login</a>
+		{#if !userId}
+			<a href="/auth" class="btn btn-primary">Login</a>
+		{:else}
+			<a href="/profile" class="btn btn-primary">Profile</a>
+		{/if}
 	</div>
 </header>
 
