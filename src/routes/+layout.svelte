@@ -1,9 +1,17 @@
 <script lang="ts">
 	import { onNavigate } from '$app/navigation';
 	import '../app.css';
-	import type { LayoutData } from './$types';
 
-	export let data: LayoutData;
+	import toastStore from '$lib/stores/toast';
+	import Toast from '$lib/components/Toast.svelte';
+	import { ToastEnum } from '$lib/stores/toast/type';
+	import { generateUUID } from 'three/src/math/MathUtils.js';
+	import { onDestroy } from 'svelte';
+
+	$: toasts = $toastStore;
+	const interval = setInterval(() => {
+		toastStore.timerToast();
+	}, 3000);
 
 	onNavigate((navigation) => {
 		if (!document.startViewTransition) return;
@@ -15,9 +23,21 @@
 			});
 		});
 	});
+
+	onDestroy(() => {
+		clearInterval(interval);
+	});
 </script>
 
 <slot />
+
+<div class="absolute right-2 bottom-2">
+	<div class="stack">
+		{#each toasts.reverse() as toast}
+			<Toast {toast} clearToast={toastStore.removeToast} />
+		{/each}
+	</div>
+</div>
 
 <style>
 	@keyframes fade-in {

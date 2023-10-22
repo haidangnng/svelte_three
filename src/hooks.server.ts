@@ -50,7 +50,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	supabase.functions.setAuth(token || '');
 	supabase.realtime.setAuth(token || '');
-	(supabase as any).rest.headers.Authorization = `Bearer ${token}`;
 	event.locals.supabase = supabase;
 	event.locals.getSession = async () => {
 		const {
@@ -66,6 +65,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	});
 
 	if (token) {
+		(supabase as any).rest.headers.Authorization = `Bearer ${token}`;
 		response.headers.set('Set-Cookie', token);
 	}
 
