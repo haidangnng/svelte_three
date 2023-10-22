@@ -9,6 +9,8 @@
 	import { applyAction, deserialize } from '$app/forms';
 	import type { ActionResult } from '@sveltejs/kit';
 	import { SETTING_OPTIONS } from '$lib/types/settings';
+	import snapshot from '$lib/stores/builder/snapshot';
+
 	import type {
 		BoxControlType,
 		DirectionalLightControlType,
@@ -16,8 +18,16 @@
 		ModelControlType,
 		SpotLightControlType
 	} from '$lib/stores/builder/type';
+	import type { WebGLRenderer } from 'three';
+	import { saveAsImage } from '$lib/utils/snapshot';
 
 	export let userId: string | undefined = undefined;
+	let loading: boolean = false;
+	let renderer: WebGLRenderer;
+
+	snapshot.subscribe((val) => {
+		renderer = val;
+	});
 
 	const createSettings = async (
 		type: SETTING_OPTIONS,
@@ -43,26 +53,49 @@
 		return response.json();
 	};
 
+	const createScreenshot = async (title: string) => {
+		const body = new FormData();
+		const imgData: string | undefined = saveAsImage(renderer);
+
+		if (!imgData) {
+			return;
+		}
+
+		body.set('imgData', imgData);
+		body.set('title', title);
+
+		console.log('body', imgData);
+
+		const response = await fetch('/api/upload/thumbnail', {
+			method: 'POST',
+			body
+		});
+
+		return response.json();
+	};
+
 	const handleSubmit = async (event: Event) => {
+		loading = true;
 		if (!userId) return;
 
 		const formEl = event.target as HTMLFormElement;
 		const data = new FormData(formEl);
 
-		const [box, ambient, directional, model, spotlight] = await Promise.all([
+		const [box, ambient, directional, model, spotlight, thumbnail] = await Promise.all([
 			createSettings(SETTING_OPTIONS.BOX, $boxControl),
 			createSettings(SETTING_OPTIONS.AMBIENT, $ambientLightControl),
 			createSettings(SETTING_OPTIONS.DIRECTION, $directionalLightControl),
 			createSettings(SETTING_OPTIONS.MODEL, $modelControl),
-			createSettings(SETTING_OPTIONS.SPOT, $spotLightControl)
+			createSettings(SETTING_OPTIONS.SPOT, $spotLightControl),
+			createScreenshot(String(data.get('title')))
 		]);
-
 		data.set('owner', userId);
 		data.set('box_setting', box.id);
 		data.set('ambient_setting', ambient.id);
 		data.set('direction_setting', directional.id);
 		data.set('model_setting', model.id);
 		data.set('spotlight_setting', spotlight.id);
+		data.set('thumbnail', thumbnail.url);
 
 		const response = await fetch(formEl.action, {
 			method: 'POST',
@@ -70,12 +103,11 @@
 		});
 
 		const result: ActionResult = deserialize(await response.text());
-		console.log('result', result);
 
 		if (result.type === 'success') {
-			// rerun all `load` functions, following the successful update
 			await invalidateAll();
 		}
+		loading = false;
 
 		applyAction(result);
 	};
@@ -83,8 +115,7 @@
 
 <div class="modal" class:modal-open={open}>
 	<div class="modal-box">
-		<h3 class="text-lg font-bold">Upload model</h3>
-		<p class="py-4">Save post</p>
+		<h3 class="text-lg font-bold">Save post</h3>
 
 		<form
 			id="save_post"
@@ -116,8 +147,18 @@
 			</div>
 
 			<div class="modal-action">
-				<button class="btn btn-ghost" on:click={() => (open = false)}>Cancel</button>
-				<button class="btn btn-primary" type="submit" form="save_post">Save</button>
+				<button
+					class="btn btn-ghost"
+					type="button"
+					disabled={loading}
+					on:click={() => (open = false)}>Cancel</button
+				>
+				<button class="btn btn-primary" disabled={loading} type="submit" form="save_post">
+					{#if loading}
+						<span class="loading loading-spinner" />
+					{/if}
+					Save
+				</button>
 			</div>
 		</form>
 	</div>

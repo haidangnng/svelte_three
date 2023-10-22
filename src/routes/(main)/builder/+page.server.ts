@@ -11,6 +11,7 @@ export const actions: Actions = {
 		const model_setting = data.get('model_setting');
 		const spotlight_setting = data.get('spotlight_setting');
 		const ambient_setting = data.get('ambient_setting');
+		const thumbnail = data.get('thumbnail');
 
 		const { data: postData } = await supabase
 			.from('post')
@@ -22,7 +23,8 @@ export const actions: Actions = {
 				direction_setting,
 				spotlight_setting,
 				model_setting,
-				ambient_setting
+				ambient_setting,
+				thumbnail
 			})
 			.select();
 

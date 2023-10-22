@@ -5,13 +5,15 @@ export const POST: RequestHandler = async ({ request, locals: { supabase } }) =>
 	const scale = data.get('scale');
 	const isRotating = data.get('isRotating');
 	const rotationSpeed = data.get('rotaionSpeed');
+	const model = data.get('url');
 
 	const { data: modelData } = await supabase
 		.from('model_settings')
 		.insert({
 			scale,
 			isRotating,
-			rotationSpeed
+			rotationSpeed,
+			model
 		})
 		.select();
 

@@ -45,6 +45,7 @@
 		"@threlte/extras": "^7.1.1",
 		"@threlte/rapier": "^1.1.2",
 		"@types/three": "^0.157.0",
+		"base64-arraybuffer": "^1.0.2",
 		"jose": "^4.15.4",
 		"jsonwebtoken": "^9.0.2",
 		"lucide-svelte": "^0.287.0",

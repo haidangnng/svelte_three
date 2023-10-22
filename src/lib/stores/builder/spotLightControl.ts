@@ -4,7 +4,7 @@ import type { SpotLightControlType } from './type';
 const defaultSpotlightControl: SpotLightControlType = {
 	color: '#ffffff',
 	intensity: 0.5,
-	distance: 1,
+	distance: 30,
 	angle: 1,
 	decay: 1,
 	penumbra: 1,

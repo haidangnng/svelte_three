@@ -7,6 +7,7 @@
 	import { SETTING_OPTIONS } from '$lib/types/settings';
 
 	import settingControl from '$lib/stores/builder/layout';
+	import modelControl from '$lib/stores/builder/modelControl';
 	import SpotLightController from './SpotLightController.svelte';
 
 	let openedSetting: SETTING_OPTIONS | undefined;
@@ -129,7 +130,7 @@
 		</div>
 	{/if}
 
-	{#if modelSettingOpen}
+	{#if modelSettingOpen && $modelControl.url}
 		<div class="absolute left-14 p-4 rounded-xl bg-base-300 w-[500px]">
 			<ModelController {handleClose} />
 		</div>

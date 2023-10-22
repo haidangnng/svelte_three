@@ -38,6 +38,7 @@ export type SpotLightControlType = LightingControlType & {
 };
 
 export type ModelControlType = {
+	url?: string;
 	scale: number;
 	isRotating: boolean;
 	rotationSpeed: number;

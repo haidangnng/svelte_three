@@ -8,6 +8,7 @@
 	import ambientLightControl from '$lib/stores/builder/ambientLightControl';
 	import directionLightControl from '$lib/stores/builder/directionalLightControl';
 	import spotLightControl from '$lib/stores/builder/spotLightControl';
+	import modelControl from '$lib/stores/builder/modelControl';
 	import Model from '../objects/builder/Model.svelte';
 	import { Object3D } from 'three';
 	import { onMount } from 'svelte';
@@ -48,7 +49,9 @@
 <World>
 	<Debug />
 	<Box />
-	<Model />
+	{#if $modelControl.url}
+		<Model url={$modelControl.url} />
+	{/if}
 	<Ground />
 
 	<T.SpotLight bind:target position={[-1 * x, y, -1 * z]} {...rest} />

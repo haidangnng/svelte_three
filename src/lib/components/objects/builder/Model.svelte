@@ -3,7 +3,10 @@
 	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 	import modelControl from '$lib/stores/builder/modelControl';
 
-	const gltf = useLoader(GLTFLoader).load('/car.glb');
+	export let url: string;
+	$: console.log('url', url);
+
+	$: gltf = useLoader(GLTFLoader).load(url);
 
 	let rotation: number = 0;
 	useFrame(() => {
