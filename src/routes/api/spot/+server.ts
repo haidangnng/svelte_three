@@ -21,7 +21,8 @@ export const POST: RequestHandler = async ({ request, locals: { supabase } }) =>
 			y: posArr[1],
 			z: posArr[2]
 		})
-		.select();
+		.select()
+		.single();
 
 	const { data: spotlight } = await supabase
 		.from('spotlight_settings')
@@ -33,9 +34,10 @@ export const POST: RequestHandler = async ({ request, locals: { supabase } }) =>
 			angle,
 			penumbra,
 			decay,
-			position: positionData[0].id
+			position: positionData.id
 		})
-		.select();
+		.select()
+		.single();
 
-	return json({ id: spotlight[0].id });
+	return json({ id: spotlight.id });
 };

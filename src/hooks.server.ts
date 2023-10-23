@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { type RequestEvent, redirect, type Handle } from '@sveltejs/kit';
+import type { RequestEvent, Handle } from '@sveltejs/kit';
 
 import { jwtVerify, createRemoteJWKSet, SignJWT } from 'jose';
 import { env } from '$env/dynamic/public';
@@ -44,13 +44,14 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	const token = await authenticatedUser(event);
 
-	// if (event.url.pathname.startsWith('/profile') && !token) {
-	// 	throw redirect(303, '/auth');
-	// }
-
 	supabase.functions.setAuth(token || '');
 	supabase.realtime.setAuth(token || '');
 	event.locals.supabase = supabase;
+
+	if (token) {
+		(supabase as any).rest.headers.Authorization = `Bearer ${token}`;
+	}
+
 	event.locals.getSession = async () => {
 		const {
 			data: { session }
@@ -65,7 +66,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 	});
 
 	if (token) {
-		(supabase as any).rest.headers.Authorization = `Bearer ${token}`;
 		response.headers.set('Set-Cookie', token);
 	}
 

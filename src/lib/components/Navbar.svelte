@@ -27,7 +27,7 @@
 				<li><a href="/">Item 1</a></li>
 			</ul>
 		</div>
-		<a href="/" class="text-xl uppercase btn btn-ghost">Pogs</a>
+		<a href="/" class="text-xl uppercase btn btn-ghost">Pogx</a>
 	</div>
 	<div class="hidden lg:flex navbar-center">
 		<ul class="px-1 menu menu-horizontal">
@@ -46,7 +46,7 @@
 		{#if !userId}
 			<a href="/auth" class="btn btn-primary">Login</a>
 		{:else}
-			<a href="/profile" class="btn btn-primary">Profile</a>
+			<a href={`/profile/${userId}`} class="btn btn-primary">Profile</a>
 		{/if}
 	</div>
 </header>

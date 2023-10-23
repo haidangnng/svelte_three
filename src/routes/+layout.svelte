@@ -4,8 +4,6 @@
 
 	import toastStore from '$lib/stores/toast';
 	import Toast from '$lib/components/Toast.svelte';
-	import { ToastEnum } from '$lib/stores/toast/type';
-	import { generateUUID } from 'three/src/math/MathUtils.js';
 	import { onDestroy } from 'svelte';
 
 	$: toasts = $toastStore;

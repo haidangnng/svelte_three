@@ -18,7 +18,8 @@ export const POST: RequestHandler = async ({ request, locals: { supabase } }) =>
 			y: targetArr[1],
 			z: targetArr[2]
 		})
-		.select();
+		.select()
+		.single();
 
 	const { data: positionData } = await supabase
 		.from('dimension')
@@ -27,17 +28,19 @@ export const POST: RequestHandler = async ({ request, locals: { supabase } }) =>
 			y: posArr[1],
 			z: posArr[2]
 		})
-		.select();
+		.select()
+		.single();
 
 	const { data: directionLight } = await supabase
 		.from('direction_settings')
 		.insert({
 			color,
 			intensity,
-			target: targetData[0].id,
-			position: positionData[0].id
+			target: targetData.id,
+			position: positionData.id
 		})
-		.select();
+		.select()
+		.single();
 
-	return json({ id: directionLight[0].id });
+	return json({ id: directionLight.id });
 };

@@ -13,19 +13,15 @@ export const load: PageServerLoad = async ({ locals: { supabase }, params }) => 
         description,
         likes,
         users (*),
-        box_settings (*),
+        box_settings (*, dimension (x, y, z)),
         ambient_settings (*),
-        direction_settings (*),
-        spotlight_settings (*),
+        direction_settings (* ,position (x, y, z), target (x, y, z)),
+        spotlight_settings (* ,position (x, y, z)),
         model_settings (*)
       `
 		)
-		.eq('id', postId);
-
-	console.log('data', {
-		postData: postData,
-		postErr
-	});
+		.eq('id', postId)
+		.single();
 
 	if (postErr || !postData || postData.length <= 0) {
 		throw error(404, {
@@ -34,6 +30,6 @@ export const load: PageServerLoad = async ({ locals: { supabase }, params }) => 
 	}
 
 	return {
-		postData: postData[0]
+		postData: postData
 	};
 };

@@ -11,7 +11,8 @@ export const POST: RequestHandler = async ({ request, locals: { supabase } }) =>
 			color,
 			intensity
 		})
-		.select();
+		.select()
+		.single();
 
-	return json({ id: ambientData[0].id });
+	return json({ id: ambientData.id });
 };

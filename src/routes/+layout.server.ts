@@ -21,6 +21,7 @@ export const load: LayoutServerLoad = async ({ cookies, locals: { supabase } }) 
 	const { data: userData } = await supabase.from('users').select().eq('user_id', userID);
 
 	let user = userData?.[0];
+
 	if (!userData || userData.length <= 0) {
 		// const newUser = await createNewUser({ user_id: userID });
 		const newUser = await supabase.from('users').insert({ user_id: userID });

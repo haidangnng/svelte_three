@@ -47,7 +47,7 @@
 				<p class="flex-wrap w-56 break-words">{userInfo.bio}</p>
 			</div>
 
-			{#if loggedInUser && userInfo.id === loggedInUser.user_id}
+			{#if loggedInUser && userInfo.user_id === loggedInUser.user_id}
 				<HankoProfile />
 
 				<div class="flex flex-col gap-2 justify-center items-center w-full">

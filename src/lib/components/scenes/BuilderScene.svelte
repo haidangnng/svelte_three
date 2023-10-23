@@ -20,7 +20,7 @@
 		snapshot.set(renderer);
 	});
 
-	$: ({ position, ...rest } = $spotLightControl);
+	$: ({ position, id, ...rest } = $spotLightControl);
 	$: [x, y, z] = position;
 	let target: Object3D | undefined;
 	let directionalTarget: Object3D | undefined;

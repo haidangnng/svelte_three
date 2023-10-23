@@ -9,6 +9,7 @@ export const boxSelect = [
 ];
 
 export type BoxControlType = {
+	id?: string;
 	boxType: BOX_TYPE;
 	color: string;
 	useTransparent: boolean;
@@ -19,6 +20,7 @@ export type BoxControlType = {
 };
 
 export type LightingControlType = {
+	id?: string;
 	color: string;
 	intensity: number;
 };
@@ -38,6 +40,7 @@ export type SpotLightControlType = LightingControlType & {
 };
 
 export type ModelControlType = {
+	id?: string;
 	url?: string;
 	scale: number;
 	isRotating: boolean;
