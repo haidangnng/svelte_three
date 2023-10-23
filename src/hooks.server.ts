@@ -44,9 +44,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	const token = await authenticatedUser(event);
 
-	if (event.url.pathname.startsWith('/profile') && !token) {
-		throw redirect(303, '/auth');
-	}
+	// if (event.url.pathname.startsWith('/profile') && !token) {
+	// 	throw redirect(303, '/auth');
+	// }
 
 	supabase.functions.setAuth(token || '');
 	supabase.realtime.setAuth(token || '');

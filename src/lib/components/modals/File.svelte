@@ -1,6 +1,5 @@
 <script lang="ts">
 	import modelControl from '$lib/stores/builder/modelControl';
-	import type { ModelControlType } from '$lib/stores/builder/type';
 
 	export let open: boolean = false;
 
@@ -26,6 +25,7 @@
 			...val,
 			url: url as string
 		}));
+		open = false;
 	};
 </script>
 

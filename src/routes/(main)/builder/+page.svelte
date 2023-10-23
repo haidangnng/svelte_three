@@ -53,11 +53,13 @@
 		</div>
 
 		<div>
-			<button
-				type="button"
-				on:click={() => (saveModalOpen = true)}
-				class="px-4 w-40 btn btn-primary">Save</button
-			>
+			{#if userId}
+				<button
+					type="button"
+					on:click={() => (saveModalOpen = true)}
+					class="px-4 w-40 btn btn-primary">Save</button
+				>
+			{/if}
 			<button
 				type="button"
 				on:click={() => (inputModalOpen = true)}

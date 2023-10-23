@@ -16,4 +16,4 @@
 	};
 </script>
 
-<button on:click={logout}>Logout</button>
+<button class="w-full btn btn-warning" on:click={logout}>Logout</button>
