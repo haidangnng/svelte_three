@@ -64,8 +64,6 @@
 		body.set('imgData', imgData);
 		body.set('title', title);
 
-		console.log('body', imgData);
-
 		const response = await fetch('/api/upload/thumbnail', {
 			method: 'POST',
 			body

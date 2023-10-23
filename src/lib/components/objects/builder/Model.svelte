@@ -4,7 +4,6 @@
 	import modelControl from '$lib/stores/builder/modelControl';
 
 	export let url: string;
-	$: console.log('url', url);
 
 	$: gltf = useLoader(GLTFLoader).load(url);
 

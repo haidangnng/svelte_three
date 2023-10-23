@@ -1,45 +1,42 @@
 <script lang="ts">
 	import HankoProfile from '$lib/components/Hanko/HankoProfile.svelte';
 	import Logout from '$lib/components/Hanko/Logout.svelte';
-	import { onMount } from 'svelte';
-	import type { LayoutData } from '../$types';
-	import type { UserType } from '$lib/types/user';
+	import { page } from '$app/stores';
 	import { Edit2 } from 'lucide-svelte';
 	import GalleryCard from '$lib/components/GalleryCard.svelte';
+	import type { LayoutData } from '../../$types';
 	export let data: LayoutData;
 
-	$: ({
-		user: { user_id },
-		supabase
-	} = data);
+	$: ({ user: loggedInUser, supabase } = data);
 
-	let userInfo: UserType;
+	$: userId = $page.url.pathname.split('/')[$page.url.pathname.split('/').length - 1];
 
 	const handleGetUserPosts = async () => {
-		const { data } = await supabase.from('post').select().eq('owner', user_id);
+		const { data } = await supabase.from('post').select().eq('owner', userId);
 
 		if (data && data.length > 0) {
 			return data;
+		} else {
+			throw new Error();
 		}
-		return [];
 	};
 
 	const handleGetUser = async () => {
-		const { data } = await supabase.from('users').select().eq('user_id', user_id);
+		const { data } = await supabase.from('users').select().eq('user_id', userId);
 
 		if (data && data.length > 0) {
-			userInfo = data[0];
+			return data[0];
+		} else {
+			throw new Error();
 		}
 	};
-
-	onMount(() => {
-		handleGetUser();
-	});
 </script>
 
-{#if userInfo}
+{#await handleGetUser()}
+	<span class="loading loading-spinner" />
+{:then userInfo}
 	<div class="flex flex-col h-full md:flex-row">
-		<div class="flex flex-col items-center p-4 w-full md:w-fit">
+		<div class="flex flex-col items-center p-4 w-full md:w-1/4">
 			<div class="flex flex-col gap-2 items-center">
 				<div class="avatar">
 					<div class="w-40 rounded-full">
@@ -49,15 +46,18 @@
 				<h3 class="text-2xl text-accent">{userInfo.name}</h3>
 				<p class="flex-wrap w-56 break-words">{userInfo.bio}</p>
 			</div>
-			<HankoProfile />
 
-			<div class="flex flex-col gap-2 justify-center items-center w-full">
-				<button class="w-full btn btn-primary">
-					<Edit2 />
-					Edit
-				</button>
-				<Logout />
-			</div>
+			{#if loggedInUser && userInfo.id === loggedInUser.user_id}
+				<HankoProfile />
+
+				<div class="flex flex-col gap-2 justify-center items-center w-full">
+					<button class="w-full btn btn-primary">
+						<Edit2 />
+						Edit
+					</button>
+					<Logout />
+				</div>
+			{/if}
 		</div>
 
 		<div class="flex-1 p-4 w-full md:border-l">
@@ -77,4 +77,6 @@
 			{/await}
 		</div>
 	</div>
-{/if}
+{:catch}
+	<div>Error</div>
+{/await}

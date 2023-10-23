@@ -11,7 +11,6 @@ const saveAsImage = (renderer: WebGLRenderer): string | undefined => {
 
 		return imgData;
 	} catch (e) {
-		console.log(e);
 		return undefined;
 	}
 };

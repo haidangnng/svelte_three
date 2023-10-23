@@ -19,8 +19,7 @@
 
 	onMount(async () => {
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		register(hankoApi, hankoOptions).catch((error) => {
-			console.log('error', error);
+		register(hankoApi, hankoOptions).catch((_error) => {
 			// handle error
 		});
 	});
