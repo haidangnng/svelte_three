@@ -1,4 +1,5 @@
 import type { Actions } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
 
 export const actions: Actions = {
 	create_post: async ({ request, locals: { supabase } }) => {
@@ -30,24 +31,9 @@ export const actions: Actions = {
 
 		return { post: postData[0] };
 	}
+};
 
-	// create_ambient: async ({ request }) => {
-	// 	const data = await request.formData();
-	// },
-	//
-	// create_spot: async ({ request }) => {
-	// 	const data = await request.formData();
-	// },
-	//
-	// create_direction: async ({ request }) => {
-	// 	const data = await request.formData();
-	// },
-	//
-	// create_box: async ({ request }) => {
-	// 	const data = await request.formData();
-	// },
-	//
-	// create_box: async ({ request }) => {
-	// 	const data = await request.formData();
-	// }
+export const load: PageServerLoad = ({ url }) => {
+	const isEditable = url.searchParams.get('isEdit');
+	return { isEditable };
 };

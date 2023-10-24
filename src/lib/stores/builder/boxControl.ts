@@ -12,5 +12,6 @@ const defaultBoxControl: BoxControlType = {
 };
 
 const boxControl = writable<BoxControlType>(defaultBoxControl);
+export const resetBoxControl = () => boxControl.set(defaultBoxControl);
 
 export default boxControl;

@@ -8,5 +8,6 @@ const defaultModelControl: ModelControlType = {
 };
 
 const modelControl = writable<ModelControlType>(defaultModelControl);
+export const resetModelControl = () => modelControl.set(defaultModelControl);
 
 export default modelControl;

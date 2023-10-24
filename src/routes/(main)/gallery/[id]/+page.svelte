@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Canvas } from '@threlte/core';
-	import type { PageServerData } from '../$types';
+	import type { PageServerData } from './$types';
 	import BuilderScene from '$lib/components/scenes/BuilderScene.svelte';
 	import boxControl from '$lib/stores/builder/boxControl';
 	import modelControl from '$lib/stores/builder/modelControl';
@@ -8,8 +8,10 @@
 	import directionLightControl from '$lib/stores/builder/directionalLightControl';
 	import spotLightControl from '$lib/stores/builder/spotLightControl';
 	import { onMount } from 'svelte';
+	import { Edit3 } from 'lucide-svelte';
 
 	export let data: PageServerData;
+	$: isEditable = data.user && data.user.user_id === data.postData.user.user_id;
 
 	onMount(() => {
 		const {
@@ -19,7 +21,6 @@
 			spotlight_settings,
 			model_settings
 		} = data.postData;
-		console.log(data.postData);
 
 		boxControl.set({
 			...box_settings,
@@ -52,9 +53,14 @@
 </script>
 
 <div class="flex flex-col gap-4 justify-start items-center w-full">
-	<div class="w-3/5 max-h-full rounded-3xl border aspect-square border-accent">
+	<div class="relative w-3/5 max-h-full rounded-3xl border aspect-square border-accent">
 		<Canvas>
 			<BuilderScene />
 		</Canvas>
+
+		{#if isEditable}
+			<button class="absolute right-4 bottom-4"><a href="/builder?isEdit=true"><Edit3 /></a></button
+			>
+		{/if}
 	</div>
 </div>

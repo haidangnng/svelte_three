@@ -12,7 +12,7 @@ export const POST: RequestHandler = async ({ request, locals: { supabase } }) =>
 	const dimension: FormDataEntryValue | null = data.get('size');
 	const dimensionArr = (dimension as string).split(',');
 
-	const { data: sizeData, error } = await supabase
+	const { data: sizeData } = await supabase
 		.from('dimension')
 		.insert({
 			x: dimensionArr[0],
@@ -24,12 +24,7 @@ export const POST: RequestHandler = async ({ request, locals: { supabase } }) =>
 
 	payload['size'] = sizeData.id;
 
-	const { data: boxData, error: boxError } = await supabase
-		.from('box_settings')
-		.insert(payload)
-		.select()
-		.single();
+	const { data: boxData } = await supabase.from('box_settings').insert(payload).select().single();
 
-	console.log({ boxData, boxError });
 	return json({ id: boxData.id });
 };

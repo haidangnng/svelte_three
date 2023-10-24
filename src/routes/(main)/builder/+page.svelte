@@ -3,6 +3,11 @@
 	import BuilderScene from '$lib/components/scenes/BuilderScene.svelte';
 	import BuilderController from '$lib/components/controller/BuilderController.svelte';
 	import { Settings2, Video } from 'lucide-svelte';
+	import { resetBoxControl } from '$lib/stores/builder/boxControl';
+	import { resetModelControl } from '$lib/stores/builder/modelControl';
+	import { resetAmbientLightControl } from '$lib/stores/builder/ambientLightControl';
+	import { resetDirectionLightControl } from '$lib/stores/builder/directionalLightControl';
+	import { resetSpotlightControl } from '$lib/stores/builder/spotLightControl';
 
 	import settingControl from '$lib/stores/builder/layout';
 
@@ -10,8 +15,20 @@
 	import SavePost from '$lib/components/modals/SavePost.svelte';
 	import type { LayoutData } from '../$types';
 	import CameraController from '$lib/components/controller/CameraController.svelte';
+	import { onMount } from 'svelte';
 
 	export let data: LayoutData;
+
+	onMount(() => {
+		if (!data.isEditable) {
+			resetModelControl();
+			resetBoxControl();
+			resetAmbientLightControl();
+			resetDirectionLightControl();
+			resetAmbientLightControl();
+			resetSpotlightControl();
+		}
+	});
 
 	$: userId = data?.user?.user_id || '';
 	let inputModalOpen: boolean = false;

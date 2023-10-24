@@ -13,5 +13,6 @@ const defaultSpotlightControl: SpotLightControlType = {
 };
 
 const spotLightControl = writable<SpotLightControlType>(defaultSpotlightControl);
+export const resetSpotlightControl = () => spotLightControl.set(defaultSpotlightControl);
 
 export default spotLightControl;

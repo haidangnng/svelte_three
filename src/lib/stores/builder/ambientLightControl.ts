@@ -7,5 +7,6 @@ const defaultAmbientLightControl: LightingControlType = {
 };
 
 const ambientLightControl = writable<LightingControlType>(defaultAmbientLightControl);
+export const resetAmbientLightControl = () => ambientLightControl.set(defaultAmbientLightControl);
 
 export default ambientLightControl;

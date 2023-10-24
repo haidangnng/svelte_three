@@ -9,5 +9,7 @@ const defaultDirectionalLightControl: DirectionalLightControlType = {
 };
 
 const directionLightControl = writable<DirectionalLightControlType>(defaultDirectionalLightControl);
+export const resetDirectionLightControl = () =>
+	directionLightControl.set(defaultDirectionalLightControl);
 
 export default directionLightControl;
