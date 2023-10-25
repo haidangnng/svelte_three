@@ -25,7 +25,6 @@
 			...val,
 			url: url as string
 		}));
-		open = false;
 	};
 </script>
 

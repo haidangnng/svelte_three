@@ -31,6 +31,7 @@
 	});
 
 	$: userId = data?.user?.user_id || '';
+	$: userProfileReady = data?.user?.isCreated || '';
 	let inputModalOpen: boolean = false;
 	let saveModalOpen: boolean = false;
 
@@ -71,11 +72,23 @@
 
 		<div>
 			{#if userId}
-				<button
-					type="button"
-					on:click={() => (saveModalOpen = true)}
-					class="px-4 w-40 btn btn-primary">Save</button
-				>
+				{#if userProfileReady}
+					<button
+						type="button"
+						disabled
+						on:click={() => (saveModalOpen = true)}
+						class="px-4 w-40 btn btn-primary">Save</button
+					>
+				{:else}
+					<div class="tooltip" data-tip="You need to setup your account first">
+						<button
+							type="button"
+							disabled
+							on:click={() => (saveModalOpen = true)}
+							class="px-4 w-40 btn btn-primary">Save</button
+						>
+					</div>
+				{/if}
 			{/if}
 			<button
 				type="button"

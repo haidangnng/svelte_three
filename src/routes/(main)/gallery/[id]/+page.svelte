@@ -8,10 +8,11 @@
 	import directionLightControl from '$lib/stores/builder/directionalLightControl';
 	import spotLightControl from '$lib/stores/builder/spotLightControl';
 	import { onMount } from 'svelte';
-	import { Edit3 } from 'lucide-svelte';
+	import { Edit3, Expand } from 'lucide-svelte';
 
 	export let data: PageServerData;
-	$: isEditable = data.user && data.user.user_id === data.postData.user.user_id;
+	let isExpanded: boolean = false;
+	$: isEditable = data.user && data.user.user_id === data.postData.users.user_id;
 
 	onMount(() => {
 		const {
@@ -50,17 +51,32 @@
 		});
 		modelControl.set(model_settings);
 	});
+
+	$: canvasClass = isExpanded ? 'w-full h-2/3' : 'w-80 h-80';
+	$: ({ ownerData, title, description } = data.postData);
 </script>
 
-<div class="flex flex-col gap-4 justify-start items-center w-full">
-	<div class="relative w-3/5 max-h-full rounded-3xl border aspect-square border-accent">
+<div class="flex relative flex-col gap-4 justify-start items-center w-full h-full">
+	<div
+		class={`rounded-3xl border border-accent transition-all delay-150 ease-in-out relative ${canvasClass}`}
+	>
 		<Canvas>
 			<BuilderScene />
 		</Canvas>
-
 		{#if isEditable}
-			<button class="absolute right-4 bottom-4"><a href="/builder?isEdit=true"><Edit3 /></a></button
-			>
+			<button class="absolute right-4 bottom-4">
+				<a href="/builder?isEdit=true">
+					<Edit3 />
+				</a>
+			</button>
 		{/if}
+		<button class="absolute bottom-4 left-4" on:click={() => (isExpanded = !isExpanded)}>
+			<Expand />
+		</button>
+	</div>
+
+	<div>
+		<h3 class="text-2xl">{title}</h3>
+		<p class="">{description}</p>
 	</div>
 </div>

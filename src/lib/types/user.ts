@@ -3,4 +3,5 @@ export type UserType = {
 	avatar: string;
 	name: string;
 	bio: string;
+	isCreated?: boolean;
 };
