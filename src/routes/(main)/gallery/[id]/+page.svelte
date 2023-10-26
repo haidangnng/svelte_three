@@ -7,6 +7,7 @@
 	import ambientLightControl from '$lib/stores/builder/ambientLightControl';
 	import directionLightControl from '$lib/stores/builder/directionalLightControl';
 	import spotLightControl from '$lib/stores/builder/spotLightControl';
+	import postControl from '$lib/stores/posts';
 	import { onMount } from 'svelte';
 	import { Edit3, Expand } from 'lucide-svelte';
 
@@ -20,8 +21,17 @@
 			ambient_settings,
 			direction_settings,
 			spotlight_settings,
-			model_settings
+			model_settings,
+			id,
+			title,
+			description
 		} = data.postData;
+
+		postControl.set({
+			id,
+			title,
+			description
+		});
 
 		boxControl.set({
 			...box_settings,
@@ -53,7 +63,7 @@
 	});
 
 	$: canvasClass = isExpanded ? 'w-full h-2/3' : 'w-80 h-80';
-	$: ({ ownerData, title, description } = data.postData);
+	$: ({ title, description } = data.postData);
 </script>
 
 <div class="flex relative flex-col gap-4 justify-start items-center w-full h-full">

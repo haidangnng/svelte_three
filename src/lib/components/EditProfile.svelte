@@ -51,8 +51,8 @@
 	const handleUpload = async () => {
 		const formData = new FormData();
 		formData.append('avatar', files[0]);
-		// formData.append('name', `${generateUUID()}_${files[0].name}`);
-		formData.append('name', files[0].name);
+		formData.append('name', `${generateUUID()}_${files[0].name}`);
+		// formData.append('name', generateUUID());
 
 		const req = await fetch('/api/upload/avatar', {
 			method: 'post',

@@ -6,6 +6,7 @@ export const POST: RequestHandler = async ({ request, locals: { supabase } }) =>
 	const payload: Record<string, any> = {};
 
 	for (const key of data.keys()) {
+		if (key === 'dimension' || key === 'id') continue;
 		payload[key] = data.get(key);
 	}
 

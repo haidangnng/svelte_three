@@ -5,11 +5,13 @@
 	import directionalLightControl from '$lib/stores/builder/directionalLightControl';
 	import spotLightControl from '$lib/stores/builder/spotLightControl';
 	import modelControl from '$lib/stores/builder/modelControl';
-	import { invalidateAll } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import { applyAction, deserialize } from '$app/forms';
 	import type { ActionResult } from '@sveltejs/kit';
 	import { SETTING_OPTIONS } from '$lib/types/settings';
 	import snapshot from '$lib/stores/builder/snapshot';
+	import postControl from '$lib/stores/posts';
+	import { decode } from 'base64-arraybuffer';
 
 	import type {
 		BoxControlType,
@@ -20,8 +22,11 @@
 	} from '$lib/stores/builder/type';
 	import type { WebGLRenderer } from 'three';
 	import { saveAsImage } from '$lib/utils/snapshot';
+	import { generateUUID } from 'three/src/math/MathUtils.js';
 
 	export let userId: string | undefined = undefined;
+	export let isEditable: boolean = false;
+	export let supabase;
 	let loading: boolean = false;
 	let renderer: WebGLRenderer;
 
@@ -54,22 +59,22 @@
 	};
 
 	const createScreenshot = async (title: string) => {
-		const body = new FormData();
+		// const body = new FormData();
 		const imgData: string | undefined = saveAsImage(renderer);
 
 		if (!imgData) {
 			return;
 		}
 
-		body.set('imgData', imgData);
-		body.set('title', title);
-
-		const response = await fetch('/api/upload/thumbnail', {
-			method: 'POST',
-			body
+		const genTitle = `${generateUUID()}_${title}`;
+		const base64 = imgData.split('base64,')[1];
+		supabase.storage.from('thumbnail').upload(genTitle, decode(base64), {
+			contentType: 'image/png'
 		});
 
-		return response.json();
+		const { data: thumbnailData } = await supabase.storage.from('thumbnail').getPublicUrl(genTitle);
+
+		return thumbnailData.publicUrl;
 	};
 
 	const handleSubmit = async (event: Event) => {
@@ -87,13 +92,17 @@
 			createSettings(SETTING_OPTIONS.SPOT, $spotLightControl),
 			createScreenshot(String(data.get('title')))
 		]);
+		if ($postControl?.id !== undefined) {
+			data.set('id', $postControl.id);
+		}
+
 		data.set('owner', userId);
 		data.set('box_setting', box.id);
 		data.set('ambient_setting', ambient.id);
 		data.set('direction_setting', directional.id);
 		data.set('model_setting', model.id);
 		data.set('spotlight_setting', spotlight.id);
-		data.set('thumbnail', thumbnail.url);
+		data.set('thumbnail', thumbnail);
 
 		const response = await fetch(formEl.action, {
 			method: 'POST',
@@ -104,6 +113,9 @@
 
 		if (result.type === 'success') {
 			await invalidateAll();
+			if (result.data?.post?.id) {
+				goto(`/gallery/${result.data.post.id}`);
+			}
 		}
 		loading = false;
 
@@ -127,6 +139,7 @@
 					<input
 						type="text"
 						name="title"
+						bind:value={$postControl.title}
 						placeholder="Title"
 						class="w-full max-w-xs input input-sm input-bordered"
 					/>
@@ -138,6 +151,7 @@
 					<span class="label-text">Description</span>
 					<textarea
 						name="description"
+						bind:value={$postControl.description}
 						placeholder="Description"
 						class="w-full max-w-xs textarea textarea-bordered textarea-md"
 					/>

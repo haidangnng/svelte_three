@@ -16,11 +16,16 @@
 	import type { LayoutData } from '../$types';
 	import CameraController from '$lib/components/controller/CameraController.svelte';
 	import { onMount } from 'svelte';
+	import postControl from '$lib/stores/posts';
 
 	export let data: LayoutData;
 
 	onMount(() => {
 		if (!data.isEditable) {
+			postControl.set({
+				title: '',
+				description: ''
+			});
 			resetModelControl();
 			resetBoxControl();
 			resetAmbientLightControl();
@@ -75,7 +80,6 @@
 				{#if userProfileReady}
 					<button
 						type="button"
-						disabled
 						on:click={() => (saveModalOpen = true)}
 						class="px-4 w-40 btn btn-primary">Save</button
 					>
@@ -110,4 +114,9 @@
 </div>
 
 <File bind:open={inputModalOpen} />
-<SavePost bind:userId bind:open={saveModalOpen} />
+<SavePost
+	supabase={data.supabase}
+	bind:userId
+	bind:open={saveModalOpen}
+	isEditable={data?.isEditable}
+/>

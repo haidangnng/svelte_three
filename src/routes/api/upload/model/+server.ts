@@ -7,7 +7,7 @@ export const POST: RequestHandler = async ({ request, locals: { supabase } }) =>
 	const name = formData.get('name');
 
 	await supabase.storage.from('models').upload(name, model, {
-		contentType: 'model/gltf-binary '
+		contentType: 'model/gltf-binary'
 	});
 
 	const { data } = await supabase.storage.from('models').getPublicUrl(name);

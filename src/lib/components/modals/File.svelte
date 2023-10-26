@@ -1,5 +1,6 @@
 <script lang="ts">
 	import modelControl from '$lib/stores/builder/modelControl';
+	import { generateUUID } from 'three/src/math/MathUtils.js';
 
 	export let open: boolean = false;
 
@@ -11,7 +12,7 @@
 		loading = true;
 		const formData = new FormData();
 		formData.append('model', files[0]);
-		formData.append('name', files[0].name);
+		formData.append('name', `${generateUUID()}_${files[0].name}`);
 
 		const req = await fetch('/api/upload/model', {
 			method: 'post',
@@ -25,6 +26,7 @@
 			...val,
 			url: url as string
 		}));
+		open = false;
 	};
 </script>
 
