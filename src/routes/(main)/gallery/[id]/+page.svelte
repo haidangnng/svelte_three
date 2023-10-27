@@ -10,6 +10,7 @@
 	import postControl from '$lib/stores/posts';
 	import { onMount } from 'svelte';
 	import { Edit3, Expand } from 'lucide-svelte';
+	import { goto } from '$app/navigation';
 
 	export let data: PageServerData;
 	let isExpanded: boolean = false;
@@ -63,7 +64,7 @@
 	});
 
 	$: canvasClass = isExpanded ? 'w-full h-2/3' : 'w-80 h-80';
-	$: ({ title, description } = data.postData);
+	$: ({ title, description, users } = data.postData);
 </script>
 
 <div class="flex relative flex-col gap-4 justify-start items-center w-full h-full">
@@ -85,8 +86,24 @@
 		</button>
 	</div>
 
-	<div>
+	<div class="flex flex-col gap-4 justify-center items-center">
 		<h3 class="text-2xl">{title}</h3>
 		<p class="">{description}</p>
+
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
+		<div class="flex gap-2 cursor-pointer" on:click={() => goto(`/profile/${users.user_id}`)}>
+			{#if users.avatar}
+				<div class="avatar">
+					<div class="w-16 rounded-full">
+						<img src={users.avatar} alt="user avatar" />
+					</div>
+				</div>
+			{/if}
+
+			<div class="flex flex-col gap-2">
+				<h3 class="text-xl text-accent">{users.name}</h3>
+				<p class="flex-wrap w-56 break-words">{users.bio}</p>
+			</div>
+		</div>
 	</div>
 </div>
