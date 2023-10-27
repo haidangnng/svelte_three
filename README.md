@@ -40,6 +40,10 @@ npm install
   - Supabase api key
   - Subapase jwt
 
+- Setup database relations
+
+  - ![relations table](https://fspmetepgxthrrapcawe.supabase.co/storage/v1/object/public/thumbnail/Screen%20Shot%202023-10-27%20at%2011.12.28.png)
+
 - Configure env (.env)
 
 ```
