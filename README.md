@@ -1,38 +1,60 @@
-# create-svelte
+# Poxs
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Showcasing your 3d models with lighting settings equilavent to setting up a lighting box or display box
 
-## Creating a project
+## Installation
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+- Use package manager to install dependencies
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+pnpm install
 ```
 
-## Building
-
-To create a production version of your app:
+or
 
 ```bash
-npm run build
+yarn install
 ```
 
-You can preview the production build with `npm run preview`.
+or
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+```bash
+npm install
+```
+
+- Create Hanko Account
+
+  - [Hanko homepage](https://www.hanko.io/)
+
+- Follow steps from the documentation to create Project
+
+  - [Hanko docs](https://docs.hanko.io/setup-hanko-cloud)
+
+- Create supabase account and project
+
+  - [Supabase homepage](https://supabase.com/)
+
+- Retrieve Supabase secrets including
+
+  - Supabase url
+  - Supabase api key
+  - Subapase jwt
+
+- Configure env (.env)
+
+```
+PUBLIC_HANKO_API_URL=[your-hanko-api-url]
+PUBLIC_SUPABASE_URL=[your-supabase-url]
+PUBLIC_SUPABASE_API_KEY=[your-supabase-api-key]
+PUBLIC_SUPABASE_JWT=[your-supabase-jwt]
+```
+
+- Start project
+
+```
+pnpm run dev
+```
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
